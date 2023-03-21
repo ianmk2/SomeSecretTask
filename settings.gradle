@@ -1,0 +1,5 @@
+rootProject.name = 'KakaoBankBlogSearch'
+
+include 'blog-client'
+include "blog-search-api-server"
+include "blog-search-data"

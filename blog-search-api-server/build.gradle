@@ -1,0 +1,96 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+    ext {
+        springBootVersion = "3.0.4"
+        kotlinVersion = "1.7.22"
+        springCloudVersion = "2022.0.1"
+
+    }
+}
+
+plugins {
+    id "org.springframework.boot" version "${springBootVersion}"
+    id "io.spring.dependency-management" version "1.1.0"
+    id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
+    id "idea"
+
+
+}
+
+group = "com.kakaobank.blog"
+version = "1.0.0"
+sourceCompatibility = "17"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    //base spring
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    developmentOnly "org.springframework.boot:spring-boot-devtools"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+
+    //cache
+    implementation "org.springframework.boot:spring-boot-starter-cache"
+    implementation "com.github.ben-manes.caffeine:caffeine:3.1.5"
+
+    //doc
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.3"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.3"
+
+
+    //json
+    implementation"com.fasterxml.jackson.module:jackson-module-kotlin"
+
+    //kotlin
+    implementation"org.jetbrains.kotlin:kotlin-reflect"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation"io.github.microutils:kotlin-logging:1.12.5"
+
+    //test
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
+
+    //submodule
+    implementation project(":blog-client")
+    implementation project(":blog-search-data")
+}
+
+tasks.withType(KotlinCompile) {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "17"
+    }
+}
+
+tasks.named("test") {
+    useJUnitPlatform()
+}
+
+tasks.withType(Tar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(Zip) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+
+

@@ -1,0 +1,94 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+    ext {
+        springBootVersion = "3.0.4"
+        queryDslVersion = "5.0.0"
+        kotlinVersion = "1.7.22"
+    }
+}
+
+
+plugins {
+    id "org.springframework.boot" version "${springBootVersion}"
+    id "io.spring.dependency-management" version "1.1.0"
+    id "org.jetbrains.kotlin.jvm" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.plugin.spring" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.plugin.jpa" version "${kotlinVersion}"
+    id "org.jetbrains.kotlin.kapt" version "${kotlinVersion}"
+    id "idea"
+}
+
+group = "com.kakaobank.blog"
+version = "1.0.0"
+sourceCompatibility = "17"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+
+
+
+
+
+
+
+dependencies {
+    //base spring
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    developmentOnly "org.springframework.boot:spring-boot-devtools"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.retry:spring-retry"
+
+    //DB
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+    kapt "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta"
+    runtimeOnly "com.h2database:h2"
+
+    //text processor
+    implementation "org.openkoreantext:open-korean-text:2.3.1"
+    implementation "org.apache.opennlp:opennlp-tools:2.1.1"
+
+
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "io.github.microutils:kotlin-logging:1.12.5"
+
+    //test
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"
+}
+
+
+
+
+
+tasks.withType(KotlinCompile) {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "17"
+    }
+}
+
+tasks.named("test") {
+    useJUnitPlatform()
+}
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}
+
+
