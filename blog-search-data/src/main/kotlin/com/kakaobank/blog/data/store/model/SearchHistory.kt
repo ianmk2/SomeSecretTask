@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 import java.time.LocalDateTime
 
+/**
+ * 검색어 원문을 일시와 함께 보관
+ */
 @Entity
 class SearchHistory(
     @field:Id

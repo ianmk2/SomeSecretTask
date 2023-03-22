@@ -15,8 +15,19 @@ abstract class BlogSearchClientWrapper<PARAM, RESPONSE : Any> {
     private val log = KotlinLogging.logger {  }
     abstract val sourceName: String
 
+    /**
+     * 외부 클라이언트를 통해 요청 하는 부분
+     */
     abstract fun request(param: PARAM): RESPONSE
+
+    /**
+     * 범용 요청 파라미터 BlogSearchParam -> 각 클라이언트에 맞는 파라미터로 변환
+     */
     abstract fun translateParameter(param: BlogSearchParam): PARAM
+
+    /**
+     * 각 클라이언트의 결과 -> 범용 결과 DTO로 변환
+     */
     abstract fun translateResponse(response: RESPONSE): BlogSearchResponse
 
     open fun getCache(): Cache? = null

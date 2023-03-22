@@ -39,6 +39,9 @@ class SearchDataQueryService(
     }
 
 
+    /**
+     * 최근 검색어 조회
+     */
     @Transactional(readOnly = true)
     fun getSearchHistories(@Valid @Min(1) page: Int, size: Int): SimplePage<SearchHistory> {
         return searchHistoryRepo

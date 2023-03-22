@@ -10,6 +10,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
 
+/**
+ * 검색어에서 키워드를 추출하여 키워드별로 집계하여 보관
+ */
 @Entity
 @EntityListeners(value = [AuditingEntityListener::class])
 class KeywordCount(
