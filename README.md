@@ -1,5 +1,5 @@
 # BlogSearchAPI
-국내 블로그 서비스를 검색할 수 있는 프록시 서버 프로젝트입니다. 
+국내 블로그 서비스를 검색할 수 있는 서버 프로젝트입니다. 
 
 ## 사용 기술
 - Kotlin(JDK17)
@@ -23,9 +23,10 @@
 
 
 ## 실행
+- 리포지터리에서 직접적으로 다운로드 받거나 다음 [https://ianmk2.github.io/SomeSecretTask/api-release-1.0.0.jar](https://ianmk2.github.io/SomeSecretTask/api-release-1.0.0.jar)를 통하여 JAR파일을 준비합니다.
 - 본 프로젝트는 스프링부트3.0을 사용하기 때문에 최소 JDK17이상이 설치되어 있어야 합니다.
 ```
-java -jar release-api-1.0.0.jar
+java -jar api-release-1.0.0.jar
 ```
 - 서버 구동 후, swagger를 통해 API를 체험하실 수 있습니다. 
   - http://localhost:8080/swagger-ui.html
