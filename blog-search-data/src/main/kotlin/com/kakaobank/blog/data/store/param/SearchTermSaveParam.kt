@@ -2,7 +2,7 @@ package com.kakaobank.blog.data.store.param
 
 import java.time.LocalDateTime
 
-class SearchTermSaveParam(
+data class SearchTermSaveParam(
     /**
      * 검색어
      */
